@@ -16,6 +16,41 @@ public class CreditCard extends Card {
 		super(owner, validto, issuebank, balance);
 		this.creditlimit = creditlimit;
 	}
+	
+	@Override
+	public boolean karhaszdij(int dij) throws SajatException {
+		boolean ok = false;
+		int levonas = dij + getKartyadij();
+		
+		switch (this.getIssuebank()) {
+		case OTP:
+			if(this.getBalance()>levonas+10)
+			setBalance(this.getBalance()-(levonas+10));
+			ok = true;
+			break;
+		case ERSTE:
+			if(this.getBalance()>levonas+20)
+			setBalance(this.getBalance()-(levonas+20));
+			ok = true;
+			break;
+		case KANDH:
+			if(this.getBalance()>levonas+30)
+			setBalance(this.getBalance()-(levonas+30));
+			ok = true;
+			break;
+		case CIB:
+			if(this.getBalance()>levonas+40)
+			setBalance(this.getBalance()-(levonas+40));
+			ok = true;
+			break;
+		default:
+			if(this.getBalance()>levonas)
+			setBalance(this.getBalance()-(levonas));
+			ok = true;
+			break;
+		}
+		return ok;
+	}
 
 	@Override
 	public boolean withdraw(int amount) {
